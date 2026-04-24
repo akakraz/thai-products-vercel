@@ -160,8 +160,19 @@
         // 加载数据
         async function loadData() {
             try {
-                const res = await fetch('data/products.json');
-                products = await res.json();
+                const res = await fetch('data/products.json.gz');
+                const ds = new DecompressionStream('gzip');
+                const stream = res.body.pipeThrough(ds);
+                const reader = stream.getReader();
+                const chunks = [];
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    chunks.push(value);
+                }
+                const blob = new Blob(chunks);
+                const text = await blob.text();
+                products = JSON.parse(text);
                 buildCategories();
                 filterAndSort();
             } catch (e) {
