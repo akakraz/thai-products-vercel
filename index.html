@@ -178,10 +178,14 @@ async function loadData() {
         var loadingEl = document.getElementById('loading');
         loadingEl.textContent = '正在加载产品数据...';
 
-        // 并行加载7个数据分片
+        // 顺序加载7个数据分片（避免并行超时）
         var chunks = ['products_1.json','products_2.json','products_3.json','products_4.json','products_5.json','products_6.json','products_7.json'];
-        var results = await Promise.all(chunks.map(url => fetch(url).then(r => r.json())));
-        allProducts = results.flat();
+        allProducts = [];
+        for (var url of chunks) {
+            var r = await fetch(url);
+            var data = await r.json();
+            allProducts = allProducts.concat(data);
+        }
         
         // 如果单个 products_all.json 存在（备用）
         // var r = await fetch('products_all.json');
