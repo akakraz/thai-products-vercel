@@ -23,52 +23,52 @@
         body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); }
 
         /* 顶部栏 */
-        .topbar { background: #0a0a0a; color: #fff; padding: 14px 20px; display: flex; align-items: center; gap: 20px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-        .topbar h1 { font-size: 17px; font-weight: 600; color: #fff; }
-        .topbar .stats { font-size: 13px; color: var(--text2); }
-        .topbar .src-filter { display: flex; gap: 6px; align-items: center; margin-left: 20px; }
-        .src-btn { padding: 4px 12px; border-radius: 14px; border: 1px solid var(--border); background: transparent; color: var(--text2); font-size: 12px; cursor: pointer; transition: all .2s; }
+        .topbar { background: #0a0a0a; padding: 12px 16px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+        .topbar h1 { font-size: 16px; font-weight: 600; color: #fff; white-space: nowrap; }
+        .topbar .stats { font-size: 12px; color: var(--text2); white-space: nowrap; }
+        .src-filter { display: flex; gap: 5px; flex-wrap: wrap; }
+        .src-btn { padding: 3px 10px; border-radius: 12px; border: 1px solid var(--border); background: transparent; color: var(--text2); font-size: 11px; cursor: pointer; transition: all .2s; white-space: nowrap; }
         .src-btn:hover { border-color: var(--accent); color: var(--accent); }
         .src-btn.active { background: var(--accent2); border-color: var(--accent2); color: #fff; }
 
         /* 布局 */
-        .layout { display: flex; min-height: calc(100vh - 55px); }
+        .layout { display: flex; min-height: calc(100vh - 52px); }
 
         /* 侧边栏 */
-        .sidebar { width: 280px; background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column; }
-        .search-box { padding: 12px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 10; }
-        .search-box input { width: 100%; padding: 9px 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 8px; font-size: 13px; outline: none; }
+        .sidebar { width: 270px; background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column; }
+        .search-box { padding: 10px 12px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 10; }
+        .search-box input { width: 100%; padding: 8px 11px; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 8px; font-size: 13px; outline: none; }
         .search-box input:focus { border-color: var(--accent); }
         .search-box input::placeholder { color: var(--text3); }
 
         /* 分类树 */
-        .cat-tree { padding: 8px 0; flex: 1; }
-        .tree-node { }
-        .tree-label { display: flex; align-items: center; padding: 7px 14px; cursor: pointer; font-size: 13px; color: var(--text2); transition: background .15s; user-select: none; }
+        .cat-tree { padding: 6px 0; flex: 1; }
+        .tree-label { display: flex; align-items: center; padding: 6px 12px; cursor: pointer; font-size: 13px; color: var(--text2); transition: background .15s; user-select: none; }
         .tree-label:hover { background: var(--hover); color: var(--text); }
         .tree-label.active { background: var(--accent2); color: #fff; }
         .tree-label.active:hover { background: var(--accent2); }
-        .tree-label.active-leaf { background: #1a3a4a; color: var(--accent); border-left: 2px solid var(--accent); }
-        .tree-toggle { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; margin-right: 4px; font-size: 10px; color: var(--text3); flex-shrink: 0; transition: transform .2s; }
+        .tree-label.active-leaf { background: #1a3a4a; color: var(--accent); border-left: 2px solid var(--accent); padding-left: 10px; }
+        .tree-label.active-leaf:hover { background: #1a3a4a; }
+        .tree-toggle { width: 15px; height: 15px; display: flex; align-items: center; justify-content: center; margin-right: 4px; font-size: 9px; color: var(--text3); flex-shrink: 0; transition: transform .2s; }
         .tree-toggle.open { transform: rotate(90deg); }
         .tree-toggle.leaf-toggle { visibility: hidden; }
         .tree-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .tree-count { font-size: 11px; color: var(--text3); margin-left: 6px; flex-shrink: 0; }
-        .tree-label.active .tree-count { color: rgba(255,255,255,.6); }
-        .tree-children { display: none; padding-left: 12px; }
+        .tree-count { font-size: 11px; color: var(--text3); margin-left: 5px; flex-shrink: 0; }
+        .tree-label.active .tree-count { color: rgba(255,255,255,.5); }
+        .tree-children { display: none; padding-left: 10px; }
         .tree-children.open { display: block; }
-        .l2 > .tree-label { padding-left: 30px; font-size: 13px; }
-        .l3 > .tree-label { padding-left: 46px; font-size: 12px; }
-        .l4 > .tree-label { padding-left: 62px; font-size: 12px; }
+        .l2 > .tree-label { padding-left: 28px; }
+        .l3 > .tree-label { padding-left: 44px; font-size: 12px; }
+        .l4 > .tree-label { padding-left: 60px; font-size: 12px; }
 
         /* 主内容 */
-        .main { flex: 1; padding: 16px 20px; overflow-y: auto; min-width: 0; }
-        .main-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-        .sort-btn { padding: 7px 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text2); border-radius: 6px; cursor: pointer; font-size: 13px; }
+        .main { flex: 1; padding: 14px 18px; overflow-y: auto; min-width: 0; }
+        .main-header { display: flex; align-items: center; gap: 7px; margin-bottom: 14px; flex-wrap: wrap; }
+        .sort-btn { padding: 6px 13px; border: 1px solid var(--border); background: var(--surface); color: var(--text2); border-radius: 6px; cursor: pointer; font-size: 13px; }
         .sort-btn:hover { border-color: var(--accent); color: var(--accent); }
         .sort-btn.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
         .main-stats { font-size: 13px; color: var(--text2); margin-left: auto; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
 
         /* 产品卡片 */
         .product-card { background: var(--surface); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.3); transition: box-shadow .2s, transform .2s; cursor: pointer; display: flex; flex-direction: column; border: 1px solid var(--border); }
@@ -76,18 +76,18 @@
         .product-card .img-wrap { width: 100%; aspect-ratio: 1; background: var(--surface2); display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .product-card img { width: 100%; height: 100%; object-fit: cover; }
         .product-card .no-img { color: var(--text3); font-size: 12px; }
-        .product-card .info { padding: 10px; flex: 1; display: flex; flex-direction: column; }
-        .product-card .name { font-size: 13px; color: var(--text); line-height: 1.4; height: 36px; overflow: hidden; margin-bottom: 8px; }
-        .product-card .price { font-size: 15px; font-weight: bold; color: var(--price); margin-top: auto; }
+        .product-card .info { padding: 9px; flex: 1; display: flex; flex-direction: column; }
+        .product-card .name { font-size: 12px; color: var(--text); line-height: 1.4; height: 34px; overflow: hidden; margin-bottom: 7px; }
+        .product-card .price { font-size: 14px; font-weight: bold; color: var(--price); margin-top: auto; }
         .product-card .source { font-size: 11px; color: var(--text3); margin-top: 4px; }
 
         /* 分页 */
-        .pagination { padding: 14px 20px; text-align: center; background: var(--surface); border-top: 1px solid var(--border); position: sticky; bottom: 0; }
-        .pagination button { padding: 7px 14px; margin: 0 3px; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); cursor: pointer; border-radius: 6px; font-size: 13px; }
+        .pagination { padding: 12px 18px; text-align: center; background: var(--surface); border-top: 1px solid var(--border); position: sticky; bottom: 0; }
+        .pagination button { padding: 6px 13px; margin: 0 3px; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); cursor: pointer; border-radius: 6px; font-size: 13px; }
         .pagination button:hover { border-color: var(--accent); color: var(--accent); }
         .pagination button:disabled { opacity: .35; cursor: not-allowed; }
         .pagination button.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
-        .pagination .page-info { margin-left: 14px; color: var(--text3); font-size: 13px; }
+        .pagination .page-info { margin-left: 12px; color: var(--text3); font-size: 13px; }
 
         /* 加载/无结果 */
         .loading, .no-results { text-align: center; padding: 80px 20px; color: var(--text3); font-size: 15px; }
@@ -96,42 +96,39 @@
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.7); z-index: 200; }
         .modal.show { display: flex; align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: var(--surface); border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border); }
-        .modal-header { padding: 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .modal-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
         .modal-header h3 { font-size: 15px; font-weight: 500; flex: 1; padding-right: 10px; color: var(--text); line-height: 1.4; }
-        .modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text3); padding: 0 4px; }
+        .modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text3); }
         .modal-close:hover { color: var(--text); }
-        .modal-body { padding: 16px; }
-        .modal-body img { width: 100%; max-height: 280px; object-fit: contain; background: var(--surface2); border-radius: 8px; margin-bottom: 16px; }
-        .modal-row { display: flex; padding: 11px 0; border-bottom: 1px solid var(--border); }
-        .modal-label { width: 68px; color: var(--text3); font-size: 13px; flex-shrink: 0; }
+        .modal-body { padding: 14px 16px; }
+        .modal-body img { width: 100%; max-height: 260px; object-fit: contain; background: var(--surface2); border-radius: 8px; margin-bottom: 14px; }
+        .modal-row { display: flex; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .modal-label { width: 65px; color: var(--text3); font-size: 13px; flex-shrink: 0; }
         .modal-value { flex: 1; font-size: 13px; color: var(--text); }
         .modal-price { color: var(--price) !important; font-size: 18px !important; font-weight: bold; }
         .modal-source { display: inline-block; padding: 3px 8px; background: rgba(79,195,247,.15); color: var(--accent); border-radius: 4px; font-size: 12px; }
 
-        /* 滚动条 */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-        /* 响应式 */
         @media (max-width: 768px) {
             .layout { flex-direction: column; }
             .sidebar { width: 100%; max-height: 45vh; }
-            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 9px; }
             .src-filter { display: none; }
+            .topbar { gap: 8px; }
         }
     </style>
 </head>
 <body>
-    <!-- 顶部栏 -->
     <div class="topbar">
-        <h1>🏗️ 泰国建材产品目录</h1>
+        <h1>🏗️ 泰国建材</h1>
         <span class="stats" id="topStats">加载中...</span>
         <div class="src-filter" id="srcFilter"></div>
     </div>
 
     <div class="layout">
-        <!-- 侧边栏：分类树 -->
         <div class="sidebar">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="搜索产品名称..." oninput="handleSearch()">
@@ -139,7 +136,6 @@
             <div class="cat-tree" id="catTree"></div>
         </div>
 
-        <!-- 主内容 -->
         <div class="main">
             <div class="main-header">
                 <button class="sort-btn active" data-sort="default" onclick="handleSort(this)">默认</button>
@@ -153,10 +149,8 @@
         </div>
     </div>
 
-    <!-- 分页 -->
     <div class="pagination" id="pagination"></div>
 
-    <!-- 详情弹窗 -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -168,69 +162,34 @@
     </div>
 
 <script>
-// ─── 数据 & 状态 ──────────────────────────────────────────────────────────
-let allProducts = [];
-let filteredProducts = [];
-let currentSort = 'default';
-let currentPage = 1;
-let currentCat = null;   // 当前选中分类（完整分类名）
-let currentSrc = null;   // 当前数据源
-const pageSize = 40;
-
-// ─── 分类树：定义逻辑父分类 ─────────────────────────────────────────────────
-const L1_MAP = {
-    '卫浴/卫生间': ['浴室', '沐浴', '浴缸', '马桶', '蹲便器', '面盆', '洗手盆', '花洒', '水龙头', '淋浴', '浴帘', '坐浴盆', '浴室柜', '浴室配件', '浴室挂件', '浴室收纳'],
-    '厨房': ['厨房', '橱柜', '水槽', '灶具', '抽油烟机', '厨柜', '洗碗机', '微波炉'],
-    '瓷砖/地板': ['瓷砖', '地砖', '墙砖', '马赛克', '大理石', '天然石', 'SPC', '地板', '地毯', '层压板', '木地板', '踢脚线', '底板', '石塑地板'],
-    '电气/照明': ['灯', '照明', 'LED', '电工', '电线', '电缆', '开关', '插座', '断路器', '配电', '电气', '筒灯', '壁灯', '吊灯', '台灯', '轨道灯'],
-    '建筑材料': ['瓦', '屋顶', '水泥', '钢材', '钢筋', '钢板', '型钢', '铁丝', '钢丝', '纤维水泥', '石膏', '砖', '砌块', '木材', '木方', '胶合板', '密度板', 'OSB', '欧松板', '混凝土'],
-    '管道/供水': ['水管', '管道', '阀门', '水龙头', '水箱', '水泵', '水表', '接头', '法兰', 'PVC', 'PE管', '软管', '水暖', '供水', '排水', '化粪池', '隔油池', '淋浴阀', '花洒头'],
-    '门窗': ['门', '窗', '门锁', '窗锁', '门把手', '门铰链', '闭门器', '门吸', '滑撑', '门框', '窗框', '防盗门', '推拉门', '折叠门', '纱门', '纱窗', '百叶窗', '窗帘', '卷帘', '罗马帘'],
-    '五金/工具': ['螺丝', '螺母', '螺栓', '钉子', '扳手', '钳子', '锤子', '锯', '电钻', '钻头', '砂纸', '砂轮', '打磨', '切割', '梯子', '手推车', '卷尺', '工具箱', '工具', '锁', '铰链', '把手', '拉手', '滑轨', '挂钩', '角码', '钉枪', '气枪', '焊丝'],
-    '家电': ['空调', '冰箱', '洗衣机', '电视', '风扇', '电暖器', '热水器', '吸尘器', '烤箱', '电磁炉', '空气净化', '加湿器', '除湿机'],
-    '家具/软装': ['床垫', '床', '沙发', '椅子', '桌子', '柜子', '书架', '鞋柜', '衣柜', '储物柜', '床头柜', '茶几', '地垫', '抱枕', '靠垫', '床单', '被套', '枕套', '被子', '褥子', '毛巾', '浴袍', '床上用品'],
-    '户外/园艺': ['花园', '园艺', '围栏', '栅栏', '花盆', '花架', '花箱', '种植箱', '割草机', '户外家具', '遮阳伞', '遮阳篷', '帆布', '防护网', '塑料布', '防鸟网', '园艺工具'],
-    '清洁/收纳': ['清洁', '洗涤', '拖把', '扫帚', '垃圾桶', '收纳', '置物架', '粘钩', '收纳盒', '收纳箱', '储物盒', '保鲜盒', '食品盒', '密封袋'],
-    '化工/涂料': ['油漆', '涂料', '色浆', '底漆', '面漆', '清漆', '胶', '密封胶', '玻璃胶', 'AB胶', '粘合剂', '填缝剂', '美缝剂', '腻子'],
-    '安全/防护': ['安全', '防护', '手套', '护目镜', '安全帽', '口罩', '耳塞', '安全鞋', '防护服', '灭火器', '烟雾报警', '监控', '门禁', '保险柜'],
-};
-
-// 反向映射：keyword → L1名
-const KW_TO_L1 = {};
-Object.entries(L1_MAP).forEach(([l1, kws]) => {
-    kws.forEach(kw => { KW_TO_L1[kw] = l1; });
-});
-
-function findL1(cat) {
-    if (!cat) return null;
-    // 先找最长匹配
-    let best = null, bestLen = 0;
-    for (const kw of Object.keys(KW_TO_L1)) {
-        if (cat.includes(kw) && kw.length > bestLen) {
-            best = KW_TO_L1[kw];
-            bestLen = kw.length;
-        }
-    }
-    return best;
-}
+// ─── 全局状态 ───────────────────────────────────────────────────────────────
+var allProducts = [];
+var filteredProducts = [];
+var currentSort = 'default';
+var currentPage = 1;
+var currentCat = null;
+var currentSrc = null;
+var catMeta = {};   // catName → {count, l1, l2, l3, keywords}
+var pageSize = 40;
 
 // ─── 数据加载 ───────────────────────────────────────────────────────────────
 async function loadData() {
     try {
-        const files = [];
-        for (let i = 1; i <= 52; i++) {
+        var files = [];
+        for (var i = 1; i <= 52; i++) {
             files.push('data/products_' + String(i).padStart(2,'0') + '.json');
         }
 
         document.getElementById('loading').textContent = '正在加载产品数据...';
-        const promises = files.map(f => fetch(f).then(r => r.json()).catch(() => []));
-        const results = await Promise.all(promises);
+        var promises = files.map(function(f) { return fetch(f).then(function(r) { return r.json(); }).catch(function() { return []; }); });
+        var results = await Promise.all(promises);
         allProducts = results.flat();
 
         document.getElementById('loading').style.display = 'none';
         document.getElementById('topStats').textContent = '共 ' + allProducts.length.toLocaleString() + ' 个产品';
 
         buildSrcFilter();
+        buildCatMeta();
         buildCatTree();
         filterAndSort();
     } catch (e) {
@@ -239,16 +198,142 @@ async function loadData() {
     }
 }
 
+// ─── 分类元数据 ─────────────────────────────────────────────────────────────
+// L1 categories with discriminative keywords
+var L1_DEFS = [
+    { id: 'bathroom',    name: '卫浴/卫生间', icon: '🚿',
+      kws: ['浴室','沐浴','浴缸','马桶','蹲便器','面盆','洗手盆','花洒','水龙头','淋浴','浴帘','坐浴盆','浴室柜','浴巾','浴袍','淋浴房','小便斗','皂液器','干手器','毛巾架','SPA','汗蒸','马桶盖','马桶刷','防滑垫','浴室扶手','浴室镜','浴室灯','浴室置物','角阀','编织管','妇洗器','冲洗阀','花洒套装','淋浴屏','浴霸','汗蒸房'] },
+    { id: 'kitchen',     name: '厨房', icon: '🍳',
+      kws: ['厨房','橱柜','水槽','灶具','抽油烟机','厨柜','微波炉','烤箱','电磁炉','洗碗机','燃气灶','消毒柜','调味篮','拉篮','水槽龙头','厨房置物','集成灶','蒸烤箱','嵌入式厨电','燃气灶具','烟机配件','灶具配件','水槽配件','沥水篮','碗碟架','调味架','厨房挂钩','厨房拉手','厨房铰链','石英石台面','人造石台面','大理石台面','橱柜台面'] },
+    { id: 'tile_floor',  name: '瓷砖/地板', icon: '🧱',
+      kws: ['瓷砖','地砖','墙砖','马赛克','SPC','地板','地毯','层压板','木地板','踢脚线','底板','石塑','地垫','地板革','瓷砖胶','美缝剂','勾缝剂','美纹纸','地砖配件','地板安装','地板配件','防潮垫','防水垫','门槛石','窗台石','楼梯踏步','瓷砖找平','薄贴法','干挂法','瓷砖切割','釉面砖','抛光砖','仿古砖','木纹砖','微晶石','玻化砖'] },
+    { id: 'electrical',  name: '电气/照明', icon: '💡',
+      kws: ['灯','照明','LED','电工','电线','电缆','开关','插座','断路器','配电','电气','筒灯','壁灯','吊灯','台灯','轨道灯','吸顶灯','灯带','灯泡','灯管','日光灯','射灯','格栅灯','应急灯','指示灯','配电箱','电表','漏电保护','接地','地插','USB插座','网线插座','电视插座','电话插座','LED灯带','LED灯泡','LED射灯','LED筒灯','LED面板灯','灯饰配件','灯头灯座','开关插座面板','断路器配件','穿线管','线槽','PVC线管','网格桥架','光纤','网线'] },
+    { id: 'building',     name: '建筑材料', icon: '🏗️',
+      kws: ['瓦','屋顶','水泥','钢材','钢筋','钢板','型钢','铁丝','钢丝','纤维水泥','石膏','砖','砌块','木材','木方','木枋','胶合板','密度板','OSB','欧松板','混凝土','砂浆','黄沙','石子','石灰','白灰','保温','隔热','岩棉','玻璃棉','泡沫板','挤塑板','防水卷材','防水涂料','沥青','油毛毡','螺纹钢','工字钢','槽钢','角钢','方管','圆管','脚手架','扣件','步步紧','止水螺杆','对拉螺杆','铁丝网','钢丝网','金刚网','防护网','隔离网','彩钢瓦','琉璃瓦','陶瓷瓦','波形瓦','屋面防水','屋面保温','女儿墙','天沟'] },
+    { id: 'plumbing',     name: '管道/供水', icon: '🔧',
+      kws: ['水管','管道','阀门','水箱','水泵','水表','接头','法兰','PVC','PE管','软管','水暖','供水','排水','化粪池','隔油池','淋浴阀','花洒头','地漏','排水管','给水管','燃气管','波纹管','编织管','角阀','球阀','闸阀','止回阀','减压阀','过滤器','净水器','前置过滤','管件','弯头','三通','四通','直接','堵头','活接','热熔','电熔','PPR管','PVC排水管','PVC给水管','PB管','铝塑管','铜管','不锈钢管','阀门手轮','水表箱','检查井','雨水井','虹吸排水','同层排水','马桶排水','墙排'] },
+    { id: 'door_window',  name: '门窗', icon: '🚪',
+      kws: ['门','窗','门锁','窗锁','门把手','门铰链','闭门器','门吸','滑撑','门框','窗框','防盗门','推拉门','折叠门','纱门','纱窗','百叶窗','窗帘','卷帘','罗马帘','移门','平开门','子母门','实木门','钢木门','铝合金窗','塑钢窗','玻璃门','淋浴门','玻璃隔断','门挡','门铃','猫眼','门碰','卧室门','厨卫门','阳台门','入户门','防火门','智能门锁','指纹锁','密码锁','门禁系统','可视对讲','门套线','窗台板','滑轨','吊轨','地轨','缓冲器','门阻','门合页','门锁体','锁芯'] },
+    { id: 'hardware',    name: '五金/工具', icon: '🔩',
+      kws: ['螺丝','螺母','螺栓','钉子','扳手','钳子','锤子','锯','电钻','钻头','砂纸','砂轮','打磨','切割','梯子','手推车','卷尺','工具箱','锁','铰链','把手','拉手','滑轨','挂钩','角码','钉枪','气枪','焊丝','锯片','切割片','磨片','砂带','砂盘','钢丝球','钢丝刷','扎带','束线带','线卡','管卡','膨胀螺栓','化学螺栓','自攻螺丝','干壁钉','水泥钉','钢钉','羊角锤','橡皮锤','尖嘴钳','斜口钳','大力钳','梅花扳手','套筒扳手','活动扳手','内六角','螺丝刀','电笔','测电笔','电烙铁','热风枪','角磨机','电锤','电镐','冲击钻','云石机','切割机','焊机','焊条','抛光机','往复锯','曲线锯','电圆锯','台锯','台钻','锂电工具','充电工具','木工工具','测量工具','水平尺','激光水平仪','墨斗'] },
+    { id: 'appliance',    name: '家电', icon: '🧊',
+      kws: ['空调','冰箱','洗衣机','电视','风扇','电暖器','热水器','吸尘器','电磁炉','空气净化','加湿器','除湿机','干衣机','熨斗','挂烫机','饮水机','净水机','电热水壶','电饭煲','电压力锅','豆浆机','榨汁机','料理机','破壁机','搅拌机','咖啡机','面包机','电饼铛','空气炸锅','空调内机','空调外机','空调配件','空调遥控','空调支架','冰箱配件','洗衣机配件','电视支架','电视挂架','壁挂炉','暖气片','地暖','燃气热水器','电热水器','太阳能热水器','空气能热水器','中央空调'] },
+    { id: 'furniture',    name: '家具/软装', icon: '🛋️',
+      kws: ['床垫','床','沙发','椅子','桌子','柜子','书架','鞋柜','衣柜','储物柜','床头柜','茶几','床单','被套','枕套','被子','褥子','床上用品','窗帘杆','窗帘滑轨','窗帘挂钩','沙发垫','椅垫','桌布','脚凳','换鞋凳','屏风','隔断','衣柜灯','穿衣镜','床架','上下床','折叠床','沙发床','办公桌','会议桌','餐桌','茶台','电脑桌','书桌','梳妆台','玄关柜','酒柜','电视柜','榻榻米','定制衣柜','定制橱柜','全屋定制','窗帘布','窗帘纱','百叶窗帘','卷帘窗帘','地毯','防滑垫'] },
+    { id: 'outdoor',      name: '户外/园艺', icon: '🌿',
+      kws: ['花园','园艺','围栏','栅栏','花盆','花架','花箱','种植箱','割草机','户外家具','遮阳伞','遮阳篷','帆布','防护网','塑料布','防鸟网','园艺工具','水管车','锄头','铲子','耙子','篱笆','围栏柱','防腐木','碳化木','木凉亭','廊架','秋千','户外餐桌','户外椅','吊椅','遮阳帘','遮阳网','防草布','地钉','园艺手套','花肥','花土','花药','花种','绿植','仿真花','户外灯','景观灯','太阳能灯','庭院灯','草坪灯','雕塑','喷泉','水景','陶罐','花艺'] },
+    { id: 'clean',        name: '清洁/收纳', icon: '🧹',
+      kws: ['清洁','洗涤','拖把','扫帚','垃圾桶','收纳','置物架','粘钩','收纳盒','收纳箱','储物盒','保鲜盒','食品盒','密封袋','抹布','百洁布','海绵擦','清洁剂','消毒液','漂白剂','洗洁精','洁厕剂','玻璃水','除霉剂','除锈剂','管道疏通','马桶刷','清洁刷','刮水器','玻璃刮','滤芯','垃圾袋','静电拖','蒸汽拖','扫地机','擦地机','衣架','晾衣架','折叠衣架','智能晾衣架','收纳袋','真空收纳袋','收纳篮','脏衣篮','洗衣篮','压缩袋','衣柜收纳','厨房收纳','浴室收纳','桌面收纳'] },
+    { id: 'chemical',     name: '化工/涂料', icon: '🎨',
+      kws: ['油漆','涂料','色浆','底漆','面漆','清漆','胶','密封胶','玻璃胶','AB胶','粘合剂','填缝剂','美缝剂','腻子','石膏','水泥砂浆','防水材料','防腐涂料','防锈漆','氟碳漆','金属漆','木器漆','磁漆','硝基漆','聚氨酯漆','环氧树脂','植筋胶','结构胶','勾缝剂','瓷砖粘合剂','界面剂','墙固','地固','外墙涂料','内墙涂料','艺术涂料','真石漆','多彩漆','防水涂料','JS防水','聚氨酯防水','丙烯酸防水','卷材防水','止水带','止水条','发泡剂','泡沫填缝剂'] },
+    { id: 'safety',       name: '安全/防护', icon: '🦺',
+      kws: ['安全','防护','手套','护目镜','安全帽','口罩','耳塞','安全鞋','防护服','灭火器','烟雾报警','监控','门禁','保险柜','安全带','安全绳','安全网','安全标志','警示带','警示牌','警戒线','防护栏','护栏','扶手','防撞条','防撞角','绝缘手套','绝缘鞋','洗眼器','急救箱','消防器材','灭火毯','逃生梯','逃生绳','防火门','防火窗','防火卷帘','阻燃材料','减速带','路锥','警示柱','护角','台面护角','通道护栏','楼梯扶手','阳台护栏','儿童锁','窗户限位器','插座保护盖','燃气报警','一氧化碳报警','监控摄像头','硬盘录像机','门禁系统','考勤机','施工围挡'] },
+    { id: 'office',       name: '办公/文具', icon: '📎',
+      kws: ['办公','文具','打印','复印','纸张','文件夹','档案盒','档案袋','风琴包','抽杆夹','回形针','图钉','胶水','固体胶','修正带','修正液','橡皮','铅笔','圆珠笔','中性笔','马克笔','荧光笔','白板笔','记号笔','笔筒','笔袋','订书机','订书钉','起钉器','打孔机','计算器','印章','印台','印油','美工刀','剪刀','裁纸刀','卷笔刀','尺子','便利贴','便签纸','磁铁','标签纸','不干胶','打印纸','复印纸','牛皮纸','打印耗材','墨盒','硒鼓','碳粉','U盘','移动硬盘','鼠标','键盘','鼠标垫','耳机','音响','摄像头','扫描仪','投影仪','白板','会议设备'] },
+    { id: 'promotion',    name: '促销/特惠', icon: '🏷️',
+      kws: ['促销','特惠','折扣','特价','限时','秒杀','满减','赠品','礼包','套餐','优惠套装','样品','清仓','尾货'] }
+];
+
+var SKIP_WORDS = {'的','是','在','和','了','有','个','与','或','等','为','以','及','于','中','由','所','从','到','把','被','让','给','比','更','最','较','只','也','都','还','很','就','而','但','却','已','正在','可以','能够','应该','需要','包装','规格','型号','颜色','品牌','材质','尺寸','容量','功率','电压','数量','单位','产地','直销','工厂'};
+
+function findL1ByName(nameLower) {
+    var bestScore = 0, bestL1 = '未分类';
+    L1_DEFS.forEach(function(def) {
+        if (def.id === 'uncategorized') return;
+        var score = 0;
+        def.kws.forEach(function(kw) {
+            if (nameLower.indexOf(kw.toLowerCase()) !== -1) score++;
+        });
+        if (score > bestScore) { bestScore = score; bestL1 = def.name; }
+    });
+    // Promotion check
+    L1_DEFS.forEach(function(def) {
+        if (def.id !== 'promotion') return;
+        def.kws.forEach(function(kw) {
+            if (nameLower.indexOf(kw.toLowerCase()) !== -1) bestL1 = def.name;
+        });
+    });
+    return bestScore > 0 ? bestL1 : '未分类';
+}
+
+function buildCatMeta() {
+    // Build tree: L1 → L2 → L3 from products
+    var tree = {};  // l1 → l2 → l3 → count
+
+    allProducts.forEach(function(p) {
+        var catParts = (p.category_zh || '').split('|').map(function(c) { return c.trim(); }).filter(Boolean);
+        var catFirst = catParts[0] || '';
+        var nameFull = ((p.name_zh || p.name || '') + ' ' + catFirst).toLowerCase();
+
+        var l1 = findL1ByName(nameFull);
+        var l2 = catParts.length >= 2 ? catParts[1] : l1;
+        var l3 = catParts.length >= 3 ? catParts[2] : '';
+
+        // Map known top-level categories to L1
+        var CAT_ALIAS = {
+            '浴室': '卫浴/卫生间', '沐浴': '卫浴/卫生间',
+            '厨房': '厨房', '任何家': '厨房',
+            '电力和照明': '电气/照明', '电气工程': '电气/照明', '电力工程': '电气/照明',
+            '建筑材料': '建筑材料',
+            '供水系统': '管道/供水',
+            '手动工具和五金件': '五金/工具', '手动工具/建筑材料': '五金/工具',
+            '空调及电器': '家电', '电器/电子产品': '家电',
+            '家具': '家具/软装',
+            '瓷砖/设备': '瓷砖/地板',
+            '门窗': '门窗',
+            '表面及装饰材料': '瓷砖/地板', '层压板覆盖表面': '瓷砖/地板',
+            '颜色和装备': '化工/涂料',
+            '五金/化工': '五金/工具', '五金/化学品': '化工/涂料',
+            '花园DIY管道系统': '户外/园艺', '农业设备/园艺/供水系统': '户外/园艺',
+            '农业设备/园艺/给水系统': '户外/园艺',
+            '灯/照明': '电气/照明', '灯具/照明': '电气/照明',
+            '建筑材料 > 屋顶/屋顶配件 > 波纹屋顶瓦/设备': '建筑材料',
+            '促销高达 85%': '促销/特惠',
+            '家居装饰': '家具/软装',
+            '钢材': '建筑材料', '纤维水泥/胶合板/石膏/聚乙烯/SPC': '建筑材料',
+            '强化木地板/地毯/地板': '瓷砖/地板',
+            '窗帘/地毯': '家具/软装',
+            '清洁/洗涤设备': '清洁/收纳',
+            '床垫/床上用品/毛巾': '家具/软装',
+            '货架仓储设备': '收纳/仓储',
+            '门/窗/檐口/栅栏/楼梯': '门窗',
+            '电气工作': '电气/照明',
+            '电力工程': '电气/照明',
+            '花园家具/户外装饰': '户外/园艺'
+        };
+
+        if (CAT_ALIAS[catFirst]) l1 = CAT_ALIAS[catFirst];
+        if (!l2) l2 = l1;
+        if (catFirst === '其他' || catFirst === '') {
+            l1 = '未分类';
+            l2 = '未分类';
+            l3 = '';
+        }
+
+        if (!tree[l1]) tree[l1] = { _cnt: 0, children: {} };
+        tree[l1]._cnt++;
+        if (!tree[l1].children[l2]) tree[l1].children[l2] = { _cnt: 0, children: {} };
+        tree[l1].children[l2]._cnt++;
+        if (l3) {
+            if (!tree[l1].children[l2].children[l3]) tree[l1].children[l2].children[l3] = 0;
+            tree[l1].children[l2].children[l3]++;
+        }
+    });
+
+    catMeta = tree;
+}
+
 // ─── 数据源筛选 ─────────────────────────────────────────────────────────────
 function buildSrcFilter() {
-    const srcCount = {};
-    allProducts.forEach(p => { if (p.source) srcCount[p.source] = (srcCount[p.source] || 0) + 1; });
-    const sorted = Object.entries(srcCount).sort((a, b) => b[1] - a[1]);
+    var srcCount = {};
+    allProducts.forEach(function(p) { if (p.source) srcCount[p.source] = (srcCount[p.source] || 0) + 1; });
+    var sorted = Object.entries(srcCount).sort(function(a, b) { return b[1] - a[1]; });
 
-    const container = document.getElementById('srcFilter');
-    container.innerHTML = sorted.map(([src, count]) =>
-        `<button class="src-btn" data-src="${src}" onclick="setSrc('${src}', this)">${src} (${count.toLocaleString()})</button>`
-    ).join('');
+    var container = document.getElementById('srcFilter');
+    container.innerHTML = sorted.map(function(entry) {
+        return '<button class="src-btn" data-src="' + entry[0] + '" onclick="setSrc(\'' + entry[0] + '\',this)">' + entry[0] + ' (' + entry[1].toLocaleString() + ')</button>';
+    }).join('');
 }
 
 function setSrc(src, btn) {
@@ -256,130 +341,99 @@ function setSrc(src, btn) {
         currentSrc = null;
         btn.classList.remove('active');
     } else {
-        currentSrc = src;
-        container.querySelectorAll('.src-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.src-btn').forEach(function(b) { b.classList.remove('active'); });
         btn.classList.add('active');
+        currentSrc = src;
     }
     currentPage = 1;
     filterAndSort();
 }
 
-// ─── 分类树构建 ─────────────────────────────────────────────────────────────
+// ─── 分类树 ─────────────────────────────────────────────────────────────────
+var L1_ICONS = {
+    '卫浴/卫生间': '🚿', '厨房': '🍳', '瓷砖/地板': '🧱', '电气/照明': '💡',
+    '建筑材料': '🏗️', '管道/供水': '🔧', '门窗': '🚪', '五金/工具': '🔩',
+    '家电': '🧊', '家具/软装': '🛋️', '户外/园艺': '🌿', '清洁/收纳': '🧹',
+    '化工/涂料': '🎨', '安全/防护': '🦺', '办公/文具': '📎', '促销/特惠': '🏷️',
+    '未分类': '❓', '其他': '📦'
+};
+
 function buildCatTree() {
-    // 收集所有分类
-    const catMap = {}; // catName → count
-
-    allProducts.forEach(p => {
-        if (!p.category_zh) return;
-        // 处理多分类（有些产品有 | 分隔）
-        const cats = p.category_zh.split('|').map(c => c.trim()).filter(Boolean);
-        cats.forEach(cat => { catMap[cat] = (catMap[cat] || 0) + 1; });
-    });
-
-    // 构建树结构
-    const tree = {};
-
-    Object.entries(catMap).forEach(([cat, count]) => {
-        let parts, l1, l2, l3;
-
-        if (cat.includes(' > ')) {
-            // 层级格式：建筑材料 > 屋顶/屋顶配件 > 波纹屋顶瓦/设备
-            parts = cat.split(' > ').map(p => p.trim()).filter(Boolean);
-            l1 = findL1(parts[0]) || parts[0];
-            l2 = parts[1] || null;
-            l3 = parts[2] || null;
-        } else {
-            // 扁平格式
-            l1 = findL1(cat) || '其他';
-            l2 = null;
-            l3 = null;
-        }
-
-        if (!tree[l1]) tree[l1] = { children: {}, count: 0 };
-        tree[l1].count += count;
-
-        if (l2) {
-            if (!tree[l1].children[l2]) tree[l1].children[l2] = { children: {}, count: 0 };
-            tree[l1].children[l2].count += count;
-
-            if (l3) {
-                if (!tree[l1].children[l2].children[l3]) tree[l1].children[l2].children[l3] = { count: 0 };
-                tree[l1].children[l2].children[l3].count += count;
-            }
-        }
-    });
-
-    // 渲染
-    const container = document.getElementById('catTree');
+    var container = document.getElementById('catTree');
     container.innerHTML = '';
 
-    // 全部产品入口
-    const allItem = document.createElement('div');
-    allItem.className = 'tree-node';
-    allItem.innerHTML = `<div class="tree-label" onclick="selectCat(null, this)">
-        <span class="tree-toggle leaf-toggle"></span>
-        <span class="tree-name">📦 全部产品</span>
-        <span class="tree-count">${allProducts.length.toLocaleString()}</span>
-    </div>`;
-    container.appendChild(allItem);
+    // "All" entry
+    var allEntry = document.createElement('div');
+    allEntry.innerHTML = '<div class="tree-label" onclick="selectCatLeaf(\'\',this)">' +
+        '<span class="tree-toggle leaf-toggle"></span>' +
+        '<span class="tree-name">📦 全部产品</span>' +
+        '<span class="tree-count">' + allProducts.length.toLocaleString() + '</span></div>';
+    container.appendChild(allEntry);
 
-    // 按count排序 L1
-    const sortedL1 = Object.entries(tree).sort((a, b) => b[1].count - a[1].count);
+    // Sort L1 by count
+    var sortedL1 = Object.keys(catMeta).sort(function(a, b) {
+        return (catMeta[b]._cnt || 0) - (catMeta[a]._cnt || 0);
+    });
 
-    sortedL1.forEach(([l1Name, l1Data]) => {
-        const l1Node = document.createElement('div');
-        l1Node.className = 'tree-node';
+    sortedL1.forEach(function(l1Name) {
+        var l1Data = catMeta[l1Name];
+        var l1Node = document.createElement('div');
 
-        const l2Entries = Object.entries(l1Data.children).sort((a, b) => b[1].count - a[1].count);
-        const hasChildren = l2Entries.length > 0;
+        var l2Entries = Object.keys(l1Data.children || {}).sort(function(a, b) {
+            return ((l1Data.children[b]._cnt || 0)) - ((l1Data.children[a]._cnt || 0));
+        });
+        var hasChildren = l2Entries.length > 0;
+        var icon = L1_ICONS[l1Name] || '📂';
+        var l1Cnt = l1Data._cnt || 0;
 
-        l1Node.innerHTML = `<div class="tree-label" onclick="toggleNode(this, event)">
-            <span class="tree-toggle${hasChildren ? '' : ' leaf-toggle'}">▶</span>
-            <span class="tree-name">${l1Name}</span>
-            <span class="tree-count">${l1Data.count.toLocaleString()}</span>
-        </div>`;
+        l1Node.innerHTML = '<div class="tree-label" onclick="toggleNode(this,event)">' +
+            '<span class="tree-toggle' + (hasChildren ? '' : ' leaf-toggle') + '">▶</span>' +
+            '<span class="tree-name">' + icon + ' ' + l1Name + '</span>' +
+            '<span class="tree-count">' + l1Cnt.toLocaleString() + '</span></div>';
 
         if (hasChildren) {
-            const l2Container = document.createElement('div');
+            var l2Container = document.createElement('div');
             l2Container.className = 'tree-children';
 
-            l2Entries.forEach(([l2Name, l2Data]) => {
-                const l2Node = document.createElement('div');
+            l2Entries.slice(0, 40).forEach(function(l2Name) {
+                var l2Data = l1Data.children[l2Name];
+                var l2Node = document.createElement('div');
                 l2Node.className = 'tree-node l2';
 
-                const l3Entries = Object.entries(l2Data.children).sort((a, b) => b[1].count - a[1].count);
-                const hasL3 = l3Entries.length > 0;
-
-                l2Node.innerHTML = `<div class="tree-label" onclick="toggleNode(this, event)">
-                    <span class="tree-toggle${hasL3 ? '' : ' leaf-toggle'}">▶</span>
-                    <span class="tree-name">${l2Name}</span>
-                    <span class="tree-count">${l2Data.count.toLocaleString()}</span>
-                </div>`;
+                var l3Keys = Object.keys(l2Data.children || {});
+                l3Keys.sort(function(a, b) { return (l2Data.children[b] || 0) - (l2Data.children[a] || 0); });
+                var hasL3 = l3Keys.length > 0 && l3Keys[0];
+                var l2Cnt = l2Data._cnt || 0;
 
                 if (hasL3) {
-                    const l3Container = document.createElement('div');
+                    l2Node.innerHTML = '<div class="tree-label" onclick="toggleNode(this,event)">' +
+                        '<span class="tree-toggle">▶</span>' +
+                        '<span class="tree-name">' + l2Name + '</span>' +
+                        '<span class="tree-count">' + l2Cnt.toLocaleString() + '</span></div>';
+
+                    var l3Container = document.createElement('div');
                     l3Container.className = 'tree-children';
 
-                    l3Entries.forEach(([l3Name, l3Data]) => {
-                        const l3Node = document.createElement('div');
+                    l3Keys.slice(0, 40).forEach(function(l3Name) {
+                        var l3Node = document.createElement('div');
                         l3Node.className = 'tree-node l3';
-                        l3Node.innerHTML = `<div class="tree-label tree-leaf" onclick="selectCatLeaf('${l3Name}', '${l1Name} > ${l2Name} > ${l3Name}', this)">
-                            <span class="tree-toggle leaf-toggle"></span>
-                            <span class="tree-name">${l3Name}</span>
-                            <span class="tree-count">${l3Data.count.toLocaleString()}</span>
-                        </div>`;
+                        var safeCat = l3Name.replace(/'/g, "\\'");
+                        l3Node.innerHTML = '<div class="tree-label tree-leaf" onclick="selectCatLeaf(\'' + safeCat + '\',this)">' +
+                            '<span class="tree-toggle leaf-toggle"></span>' +
+                            '<span class="tree-name">' + l3Name + '</span>' +
+                            '<span class="tree-count">' + ((l2Data.children[l3Name] || 0)).toLocaleString() + '</span></div>';
                         l3Container.appendChild(l3Node);
                     });
 
                     l2Node.appendChild(l3Container);
                 } else {
-                    // 直接是叶节点的L2
-                    l2Node.innerHTML = `<div class="tree-label tree-leaf" onclick="selectCatLeaf('${l2Name}', '${l1Name} > ${l2Name}', this)">
-                        <span class="tree-toggle leaf-toggle"></span>
-                        <span class="tree-name">${l2Name}</span>
-                        <span class="tree-count">${l2Data.count.toLocaleString()}</span>
-                    </div>`;
+                    var safeL2 = l2Name.replace(/'/g, "\\'");
+                    l2Node.innerHTML = '<div class="tree-label tree-leaf" onclick="selectCatLeaf(\'' + safeL2 + '\',this)">' +
+                        '<span class="tree-toggle leaf-toggle"></span>' +
+                        '<span class="tree-name">' + l2Name + '</span>' +
+                        '<span class="tree-count">' + l2Cnt.toLocaleString() + '</span></div>';
                 }
+
                 l2Container.appendChild(l2Node);
             });
 
@@ -390,46 +444,35 @@ function buildCatTree() {
     });
 }
 
-// 展开/折叠节点
 function toggleNode(label, event) {
     event.stopPropagation();
-    const children = label.parentElement.querySelector(':scope > .tree-children');
-    const toggle = label.querySelector('.tree-toggle');
+    var children = label.parentElement.querySelector(':scope > .tree-children');
+    var toggle = label.querySelector('.tree-toggle');
     if (children) {
-        const isOpen = children.classList.toggle('open');
+        var isOpen = children.classList.toggle('open');
         toggle.classList.toggle('open', isOpen);
         toggle.textContent = isOpen ? '▼' : '▶';
     }
 }
 
-// 选中叶分类（最终分类名）
-function selectCatLeaf(catName, fullPath, label) {
-    // 清除所有 active 状态
-    document.querySelectorAll('.tree-label').forEach(l => l.classList.remove('active', 'active-leaf'));
-    label.classList.add('active-leaf');
-
-    currentCat = catName;
+function selectCatLeaf(catName, label) {
+    document.querySelectorAll('.tree-label').forEach(function(l) {
+        l.classList.remove('active', 'active-leaf');
+    });
+    if (label) label.classList.add('active-leaf');
+    currentCat = catName || '';
     currentPage = 1;
     filterAndSort();
 }
 
-// 选中"全部"
-function selectCat(cat, label) {
-    document.querySelectorAll('.tree-label').forEach(l => l.classList.remove('active', 'active-leaf'));
-    label.classList.add('active');
-    currentCat = null;
-    currentPage = 1;
-    filterAndSort();
-}
-
-// ─── 搜索 & 过滤 & 排序 ──────────────────────────────────────────────────────
+// ─── 搜索 & 过滤 ────────────────────────────────────────────────────────────
 function handleSearch() {
     currentPage = 1;
     filterAndSort();
 }
 
 function handleSort(btn) {
-    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
     currentSort = btn.dataset.sort;
     currentPage = 1;
@@ -437,31 +480,29 @@ function handleSort(btn) {
 }
 
 function filterAndSort() {
-    const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
+    var keyword = document.getElementById('searchInput').value.toLowerCase().trim();
 
-    filteredProducts = allProducts.filter(p => {
-        // 数据源过滤
+    filteredProducts = allProducts.filter(function(p) {
         if (currentSrc && p.source !== currentSrc) return false;
-
-        // 关键词搜索（产品名）
         if (keyword) {
-            const name = (p.name_zh || p.name || '').toLowerCase();
+            var name = (p.name_zh || p.name || '').toLowerCase();
             if (!name.includes(keyword)) return false;
         }
-
-        // 分类过滤
         if (currentCat) {
-            const cat = (p.category_zh || '').toLowerCase();
+            var cat = (p.category_zh || '').toLowerCase();
             if (!cat.includes(currentCat.toLowerCase())) return false;
         }
-
         return true;
     });
 
     if (currentSort === 'price-asc') {
-        filteredProducts.sort((a, b) => (parseFloat(a.price) || 999999) - (parseFloat(b.price) || 999999));
+        filteredProducts.sort(function(a, b) {
+            return (parseFloat(a.price) || 999999) - (parseFloat(b.price) || 999999);
+        });
     } else if (currentSort === 'price-desc') {
-        filteredProducts.sort((a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0));
+        filteredProducts.sort(function(a, b) {
+            return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
+        });
     }
 
     renderProducts();
@@ -469,10 +510,10 @@ function filterAndSort() {
     document.getElementById('mainStats').textContent = '共 ' + filteredProducts.length.toLocaleString() + ' 个';
 }
 
-// ─── 渲染 ────────────────────────────────────────────────────────────────────
+// ─── 渲染 ───────────────────────────────────────────────────────────────────
 function renderProducts() {
-    const grid = document.getElementById('productGrid');
-    const noResults = document.getElementById('noResults');
+    var grid = document.getElementById('productGrid');
+    var noResults = document.getElementById('noResults');
 
     if (filteredProducts.length === 0) {
         grid.innerHTML = '';
@@ -481,49 +522,46 @@ function renderProducts() {
     }
     noResults.style.display = 'none';
 
-    const start = (currentPage - 1) * pageSize;
-    const end = start + pageSize;
-    const pageProducts = filteredProducts.slice(start, end);
+    var start = (currentPage - 1) * pageSize;
+    var end = start + pageSize;
+    var pageProducts = filteredProducts.slice(start, end);
 
-    grid.innerHTML = pageProducts.map(p => {
-        const price = p.price ? '฿' + parseFloat(p.price).toLocaleString() : '暂无价格';
-        const name = escapeHtml(p.name_zh || p.name || '未知产品');
-        const img = p.image_url || '';
-        const globalIndex = allProducts.indexOf(p);
+    grid.innerHTML = pageProducts.map(function(p) {
+        var price = p.price ? '฿' + parseFloat(p.price).toLocaleString() : '暂无价格';
+        var name = escapeHtml(p.name_zh || p.name || '未知产品');
+        var img = p.image_url || '';
+        var globalIndex = allProducts.indexOf(p);
 
-        return `<div class="product-card" onclick="showDetail(${globalIndex})">
-            <div class="img-wrap">
-                ${img ? `<img src="${img}" loading="lazy" alt="${name}">` : '<span class="no-img">暂无图片</span>'}
-            </div>
-            <div class="info">
-                <div class="name">${name}</div>
-                <div class="price">${price}</div>
-                <div class="source">${p.source || ''}</div>
-            </div>
-        </div>`;
+        return '<div class="product-card" onclick="showDetail(' + globalIndex + ')">' +
+            '<div class="img-wrap">' +
+            (img ? '<img src="' + img + '" loading="lazy" alt="">' : '<span class="no-img">暂无图片</span>') +
+            '</div><div class="info">' +
+            '<div class="name">' + name + '</div>' +
+            '<div class="price">' + price + '</div>' +
+            '<div class="source">' + (p.source || '') + '</div></div></div>';
     }).join('');
 }
 
 function renderPagination() {
-    const totalPages = Math.ceil(filteredProducts.length / pageSize);
-    const pag = document.getElementById('pagination');
+    var totalPages = Math.ceil(filteredProducts.length / pageSize);
+    var pag = document.getElementById('pagination');
 
     if (totalPages <= 1) { pag.innerHTML = ''; return; }
 
-    let html = `<button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一页</button>`;
+    var html = '<button onclick="goToPage(' + (currentPage - 1) + ')" ' + (currentPage === 1 ? 'disabled' : '') + '>上一页</button>';
 
-    const range = 2;
-    for (let i = Math.max(1, currentPage - range); i <= Math.min(totalPages, currentPage + range); i++) {
-        html += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    var range = 2;
+    for (var i = Math.max(1, currentPage - range); i <= Math.min(totalPages, currentPage + range); i++) {
+        html += '<button class="' + (i === currentPage ? 'active' : '') + '" onclick="goToPage(' + i + ')">' + i + '</button>';
     }
 
-    html += `<button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页</button>`;
-    html += `<span class="page-info">${currentPage} / ${totalPages} 页</span>`;
+    html += '<button onclick="goToPage(' + (currentPage + 1) + ')" ' + (currentPage === totalPages ? 'disabled' : '') + '>下一页</button>';
+    html += '<span class="page-info">' + currentPage + ' / ' + totalPages + ' 页</span>';
     pag.innerHTML = html;
 }
 
 function goToPage(p) {
-    const totalPages = Math.ceil(filteredProducts.length / pageSize);
+    var totalPages = Math.ceil(filteredProducts.length / pageSize);
     if (p < 1 || p > totalPages) return;
     currentPage = p;
     renderProducts();
@@ -531,25 +569,25 @@ function goToPage(p) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ─── 详情 ────────────────────────────────────────────────────────────────────
+// ─── 详情 ───────────────────────────────────────────────────────────────────
 function showDetail(index) {
-    const p = allProducts[index];
-    const name = escapeHtml(p.name_zh || p.name || '未知');
-    const img = p.image_url || '';
+    var p = allProducts[index];
+    var name = escapeHtml(p.name_zh || p.name || '未知');
+    var img = p.image_url || '';
 
     document.getElementById('modalTitle').textContent = name;
-    let imgHtml = img
-        ? `<img src="${img}" alt="${name}">`
-        : '<div style="height:200px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text3)">暂无图片</div>';
-    let linkHtml = p.url ? `<a href="${p.url}" target="_blank" style="color:var(--accent)">打开原网页 →</a>` : '-';
+    var imgHtml = img
+        ? '<img src="' + img + '" alt="">'
+        : '<div style="height:180px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text3)">暂无图片</div>';
+    var linkHtml = p.url ? '<a href="' + p.url + '" target="_blank" style="color:var(--accent)">打开原网页 →</a>' : '-';
 
     document.getElementById('modalBody').innerHTML = imgHtml +
-        `<div class="modal-row"><span class="modal-label">价格</span><span class="modal-value modal-price">${p.price ? '฿' + parseFloat(p.price).toLocaleString() : '暂无价格'}</span></div>` +
-        `<div class="modal-row"><span class="modal-label">来源</span><span class="modal-value"><span class="modal-source">${p.source || '未知'}</span></span></div>` +
-        `<div class="modal-row"><span class="modal-label">分类</span><span class="modal-value">${p.category_zh || p.category_en || '未分类'}</span></div>` +
-        `<div class="modal-row"><span class="modal-label">品牌</span><span class="modal-value">${p.brand || '-'}</span></div>` +
-        `<div class="modal-row"><span class="modal-label">SKU</span><span class="modal-value">${p.sku || '-'}</span></div>` +
-        `<div class="modal-row"><span class="modal-label">链接</span><span class="modal-value">${linkHtml}</span></div>`;
+        '<div class="modal-row"><span class="modal-label">价格</span><span class="modal-value modal-price">' + (p.price ? '฿' + parseFloat(p.price).toLocaleString() : '暂无价格') + '</span></div>' +
+        '<div class="modal-row"><span class="modal-label">来源</span><span class="modal-value"><span class="modal-source">' + (p.source || '未知') + '</span></span></div>' +
+        '<div class="modal-row"><span class="modal-label">分类</span><span class="modal-value">' + (p.category_zh || p.category_en || '未分类') + '</span></div>' +
+        '<div class="modal-row"><span class="modal-label">品牌</span><span class="modal-value">' + (p.brand || '-') + '</span></div>' +
+        '<div class="modal-row"><span class="modal-label">SKU</span><span class="modal-value">' + (p.sku || '-') + '</span></div>' +
+        '<div class="modal-row"><span class="modal-label">链接</span><span class="modal-value">' + linkHtml + '</span></div>';
 
     document.getElementById('modal').classList.add('show');
 }
@@ -558,12 +596,12 @@ function closeModal() {
     document.getElementById('modal').classList.remove('show');
 }
 
-document.getElementById('modal').addEventListener('click', e => {
+document.getElementById('modal').addEventListener('click', function(e) {
     if (e.target.id === 'modal') closeModal();
 });
 
 function escapeHtml(text) {
-    const div = document.createElement('div');
+    var div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
