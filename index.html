@@ -178,8 +178,8 @@ async function loadData() {
         var loadingEl = document.getElementById('loading');
         loadingEl.textContent = '正在加载产品数据...';
 
-        // 顺序加载7个数据分片（避免并行超时）
-        var chunks = ['products_1.json','products_2.json','products_3.json','products_4.json','products_5.json','products_6.json','products_7.json'];
+        // 只加载最小的3个文件
+        var chunks = ['products_1.json','products_2.json','products_3.json'];
         allProducts = [];
         for (var url of chunks) {
             var r = await fetch(url);
