@@ -180,12 +180,26 @@ async function loadData() {
             files.push('data/products_' + String(i).padStart(2,'0') + '.json');
         }
 
-        document.getElementById('loading').textContent = '正在加载产品数据...';
-        var promises = files.map(function(f) { return fetch(f).then(function(r) { return r.json(); }).catch(function() { return []; }); });
-        var results = await Promise.all(promises);
-        allProducts = results.flat();
+        var loadingEl = document.getElementById('loading');
+        loadingEl.textContent = '正在加载产品数据 (0/52)...';
+        allProducts = [];
+        
+        // 串行加载，避免同时请求过多
+        for (var idx = 0; idx < files.length; idx++) {
+            try {
+                var r = await fetch(files[idx]);
+                var data = await r.json();
+                allProducts = allProducts.concat(data);
+            } catch(e) {
+                console.warn('Failed to load:', files[idx], e);
+            }
+            // 每10个文件更新一次进度
+            if (idx % 10 === 0 || idx === files.length - 1) {
+                loadingEl.textContent = '正在加载产品数据 (' + (idx + 1) + '/52)... ' + allProducts.length + ' 个';
+            }
+        }
 
-        document.getElementById('loading').style.display = 'none';
+        loadingEl.style.display = 'none';
         document.getElementById('topStats').textContent = '共 ' + allProducts.length.toLocaleString() + ' 个产品';
 
         buildSrcFilter();
@@ -194,7 +208,7 @@ async function loadData() {
         filterAndSort();
     } catch (e) {
         console.error(e);
-        document.getElementById('loading').textContent = '加载失败，请刷新重试';
+        document.getElementById('loading').textContent = '加载失败，请刷新重试: ' + e.message;
     }
 }
 
