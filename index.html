@@ -179,13 +179,15 @@ async function loadData() {
         loadingEl.textContent = '正在加载产品数据...';
 
         // 只加载最小的3个文件
-        var chunks = ['products_1.json','products_2.json','products_3.json'];
-        allProducts = [];
-        for (var url of chunks) {
-            var r = await fetch(url);
-            var data = await r.json();
-            allProducts = allProducts.concat(data);
-        }
+        // 顺序加载3个数据分片（避免超时）
+var chunks = ['products_1.json','products_2.json','products_3.json'];
+allProducts = [];
+for (var i = 0; i < chunks.length; i++) {
+    var r = await fetch(chunks[i]);
+    var data = await r.json();
+    allProducts = allProducts.concat(data);
+}
+
         
         // 如果单个 products_all.json 存在（备用）
         // var r = await fetch('products_all.json');
