@@ -6,89 +6,157 @@
     <title>泰国建材产品目录</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f5f5f5; color: #333; }
-        .topbar { background: #0066cc; color: #fff; padding: 12px 20px; display: flex; align-items: center; gap: 20px; position: sticky; top: 0; z-index: 100; }
-        .topbar h1 { font-size: 18px; font-weight: 500; }
-        .topbar .stats { font-size: 13px; opacity: 0.9; }
-        .layout { display: flex; min-height: calc(100vh - 50px); }
-        .sidebar { width: 280px; background: #fff; border-right: 1px solid #e0e0e0; overflow-y: auto; flex-shrink: 0; }
-        .sidebar-header { padding: 16px; background: #f8f8f8; font-size: 14px; font-weight: bold; color: #666; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
-        .search-box { padding: 12px; border-bottom: 1px solid #eee; position: sticky; top: 44px; background: #fff; z-index: 9; }
-        .search-box input { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
-        .search-box input:focus { border-color: #0066cc; }
-        .cat-tags { padding: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-        .cat-tag { padding: 6px 12px; background: #e8f0fe; color: #0066cc; border-radius: 16px; font-size: 12px; cursor: pointer; border: none; white-space: nowrap; }
-        .cat-tag:hover { background: #d0e4ff; }
-        .cat-tag.active { background: #0066cc; color: #fff; }
-        .main { flex: 1; padding: 16px 20px; overflow-y: auto; }
-        .main-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
-        .sort-btn { padding: 8px 14px; border: 1px solid #ddd; background: #fff; border-radius: 6px; cursor: pointer; font-size: 13px; }
-        .sort-btn:hover { border-color: #0066cc; }
-        .sort-btn.active { background: #0066cc; color: #fff; border-color: #0066cc; }
-        .main-stats { font-size: 13px; color: #888; margin-left: auto; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
-        .product-card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: box-shadow 0.2s; cursor: pointer; display: flex; flex-direction: column; }
-        .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .product-card .img-wrap { width: 100%; aspect-ratio: 1; background: #f8f8f8; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        :root {
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --surface2: #2a2a2a;
+            --surface3: #333;
+            --border: #3a3a3a;
+            --text: #e0e0e0;
+            --text2: #a0a0a0;
+            --text3: #666;
+            --accent: #4fc3f7;
+            --accent2: #0288d1;
+            --price: #ef5350;
+            --hover: #2d3a4a;
+        }
+        body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); }
+
+        /* 顶部栏 */
+        .topbar { background: #0a0a0a; color: #fff; padding: 14px 20px; display: flex; align-items: center; gap: 20px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+        .topbar h1 { font-size: 17px; font-weight: 600; color: #fff; }
+        .topbar .stats { font-size: 13px; color: var(--text2); }
+        .topbar .src-filter { display: flex; gap: 6px; align-items: center; margin-left: 20px; }
+        .src-btn { padding: 4px 12px; border-radius: 14px; border: 1px solid var(--border); background: transparent; color: var(--text2); font-size: 12px; cursor: pointer; transition: all .2s; }
+        .src-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .src-btn.active { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+
+        /* 布局 */
+        .layout { display: flex; min-height: calc(100vh - 55px); }
+
+        /* 侧边栏 */
+        .sidebar { width: 280px; background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column; }
+        .search-box { padding: 12px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 10; }
+        .search-box input { width: 100%; padding: 9px 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 8px; font-size: 13px; outline: none; }
+        .search-box input:focus { border-color: var(--accent); }
+        .search-box input::placeholder { color: var(--text3); }
+
+        /* 分类树 */
+        .cat-tree { padding: 8px 0; flex: 1; }
+        .tree-node { }
+        .tree-label { display: flex; align-items: center; padding: 7px 14px; cursor: pointer; font-size: 13px; color: var(--text2); transition: background .15s; user-select: none; }
+        .tree-label:hover { background: var(--hover); color: var(--text); }
+        .tree-label.active { background: var(--accent2); color: #fff; }
+        .tree-label.active:hover { background: var(--accent2); }
+        .tree-label.active-leaf { background: #1a3a4a; color: var(--accent); border-left: 2px solid var(--accent); }
+        .tree-toggle { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; margin-right: 4px; font-size: 10px; color: var(--text3); flex-shrink: 0; transition: transform .2s; }
+        .tree-toggle.open { transform: rotate(90deg); }
+        .tree-toggle.leaf-toggle { visibility: hidden; }
+        .tree-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .tree-count { font-size: 11px; color: var(--text3); margin-left: 6px; flex-shrink: 0; }
+        .tree-label.active .tree-count { color: rgba(255,255,255,.6); }
+        .tree-children { display: none; padding-left: 12px; }
+        .tree-children.open { display: block; }
+        .l2 > .tree-label { padding-left: 30px; font-size: 13px; }
+        .l3 > .tree-label { padding-left: 46px; font-size: 12px; }
+        .l4 > .tree-label { padding-left: 62px; font-size: 12px; }
+
+        /* 主内容 */
+        .main { flex: 1; padding: 16px 20px; overflow-y: auto; min-width: 0; }
+        .main-header { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+        .sort-btn { padding: 7px 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text2); border-radius: 6px; cursor: pointer; font-size: 13px; }
+        .sort-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .sort-btn.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+        .main-stats { font-size: 13px; color: var(--text2); margin-left: auto; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
+
+        /* 产品卡片 */
+        .product-card { background: var(--surface); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.3); transition: box-shadow .2s, transform .2s; cursor: pointer; display: flex; flex-direction: column; border: 1px solid var(--border); }
+        .product-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.5); transform: translateY(-2px); }
+        .product-card .img-wrap { width: 100%; aspect-ratio: 1; background: var(--surface2); display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .product-card img { width: 100%; height: 100%; object-fit: cover; }
-        .product-card .no-img { color: #ccc; font-size: 13px; }
+        .product-card .no-img { color: var(--text3); font-size: 12px; }
         .product-card .info { padding: 10px; flex: 1; display: flex; flex-direction: column; }
-        .product-card .name { font-size: 13px; color: #333; line-height: 1.4; height: 36px; overflow: hidden; margin-bottom: 8px; }
-        .product-card .price { font-size: 15px; font-weight: bold; color: #e53935; margin-top: auto; }
-        .product-card .source { font-size: 11px; color: #999; margin-top: 4px; }
-        .pagination { padding: 16px; text-align: center; background: #fff; border-top: 1px solid #eee; position: sticky; bottom: 0; }
-        .pagination button { padding: 8px 16px; margin: 0 3px; border: 1px solid #ddd; background: #fff; cursor: pointer; border-radius: 6px; font-size: 14px; }
-        .pagination button:hover { border-color: #0066cc; color: #0066cc; }
-        .pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
-        .pagination button.active { background: #0066cc; color: #fff; border-color: #0066cc; }
-        .pagination .page-info { margin-left: 12px; color: #888; font-size: 13px; }
-        .loading { text-align: center; padding: 60px; color: #888; font-size: 15px; }
-        .no-results { text-align: center; padding: 60px; color: #888; font-size: 15px; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; }
+        .product-card .name { font-size: 13px; color: var(--text); line-height: 1.4; height: 36px; overflow: hidden; margin-bottom: 8px; }
+        .product-card .price { font-size: 15px; font-weight: bold; color: var(--price); margin-top: auto; }
+        .product-card .source { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+        /* 分页 */
+        .pagination { padding: 14px 20px; text-align: center; background: var(--surface); border-top: 1px solid var(--border); position: sticky; bottom: 0; }
+        .pagination button { padding: 7px 14px; margin: 0 3px; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); cursor: pointer; border-radius: 6px; font-size: 13px; }
+        .pagination button:hover { border-color: var(--accent); color: var(--accent); }
+        .pagination button:disabled { opacity: .35; cursor: not-allowed; }
+        .pagination button.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+        .pagination .page-info { margin-left: 14px; color: var(--text3); font-size: 13px; }
+
+        /* 加载/无结果 */
+        .loading, .no-results { text-align: center; padding: 80px 20px; color: var(--text3); font-size: 15px; }
+
+        /* 详情弹窗 */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.7); z-index: 200; }
         .modal.show { display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; }
-        .modal-header { padding: 16px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .modal-header h3 { font-size: 16px; font-weight: 500; flex: 1; padding-right: 10px; }
-        .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #999; }
+        .modal-content { background: var(--surface); border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border); }
+        .modal-header { padding: 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h3 { font-size: 15px; font-weight: 500; flex: 1; padding-right: 10px; color: var(--text); line-height: 1.4; }
+        .modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text3); padding: 0 4px; }
+        .modal-close:hover { color: var(--text); }
         .modal-body { padding: 16px; }
-        .modal-body img { width: 100%; max-height: 300px; object-fit: contain; background: #f8f8f8; border-radius: 8px; margin-bottom: 16px; }
-        .modal-row { display: flex; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
-        .modal-label { width: 70px; color: #888; font-size: 14px; }
-        .modal-value { flex: 1; font-size: 14px; }
-        .modal-price { color: #e53935 !important; font-size: 18px !important; font-weight: bold; }
-        .modal-source { display: inline-block; padding: 3px 8px; background: #e8f0fe; color: #0066cc; border-radius: 4px; font-size: 12px; }
+        .modal-body img { width: 100%; max-height: 280px; object-fit: contain; background: var(--surface2); border-radius: 8px; margin-bottom: 16px; }
+        .modal-row { display: flex; padding: 11px 0; border-bottom: 1px solid var(--border); }
+        .modal-label { width: 68px; color: var(--text3); font-size: 13px; flex-shrink: 0; }
+        .modal-value { flex: 1; font-size: 13px; color: var(--text); }
+        .modal-price { color: var(--price) !important; font-size: 18px !important; font-weight: bold; }
+        .modal-source { display: inline-block; padding: 3px 8px; background: rgba(79,195,247,.15); color: var(--accent); border-radius: 4px; font-size: 12px; }
+
+        /* 滚动条 */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        /* 响应式 */
         @media (max-width: 768px) {
             .layout { flex-direction: column; }
-            .sidebar { width: 100%; max-height: 40vh; }
+            .sidebar { width: 100%; max-height: 45vh; }
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .src-filter { display: none; }
         }
     </style>
 </head>
 <body>
+    <!-- 顶部栏 -->
     <div class="topbar">
         <h1>🏗️ 泰国建材产品目录</h1>
         <span class="stats" id="topStats">加载中...</span>
+        <div class="src-filter" id="srcFilter"></div>
     </div>
+
     <div class="layout">
+        <!-- 侧边栏：分类树 -->
         <div class="sidebar">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="搜索产品..." oninput="handleSearch()">
+                <input type="text" id="searchInput" placeholder="搜索产品名称..." oninput="handleSearch()">
             </div>
-            <div class="cat-tags" id="catTags"></div>
+            <div class="cat-tree" id="catTree"></div>
         </div>
+
+        <!-- 主内容 -->
         <div class="main">
             <div class="main-header">
-                <button class="sort-btn active" data-sort="default" onclick="handleSort(this)">默认排序</button>
+                <button class="sort-btn active" data-sort="default" onclick="handleSort(this)">默认</button>
                 <button class="sort-btn" data-sort="price-asc" onclick="handleSort(this)">价格 ↑</button>
                 <button class="sort-btn" data-sort="price-desc" onclick="handleSort(this)">价格 ↓</button>
                 <span class="main-stats" id="mainStats"></span>
             </div>
             <div class="products-grid" id="productGrid"></div>
             <div class="no-results" id="noResults" style="display:none">未找到产品</div>
-            <div class="loading" id="loading">加载产品数据...</div>
+            <div class="loading" id="loading">正在加载产品数据...</div>
         </div>
     </div>
+
+    <!-- 分页 -->
     <div class="pagination" id="pagination"></div>
+
+    <!-- 详情弹窗 -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -98,134 +166,409 @@
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
-    <script>
-        let products = [];
-        let filteredProducts = [];
-        let currentSort = 'default';
-        let currentPage = 1;
-        const pageSize = 40;
-        async function loadData() {
-            try {
-                const dataFiles = ['products_01.json','products_02.json','products_03.json','products_04.json','products_05.json','products_06.json','products_07.json','products_08.json','products_09.json','products_10.json','products_11.json','products_12.json','products_13.json','products_14.json','products_15.json','products_16.json','products_17.json','products_18.json','products_19.json','products_20.json','products_21.json','products_22.json','products_23.json','products_24.json','products_25.json','products_26.json','products_27.json','products_28.json','products_29.json','products_30.json','products_31.json','products_32.json','products_33.json','products_34.json','products_35.json','products_36.json','products_37.json','products_38.json','products_39.json','products_40.json','products_41.json','products_42.json','products_43.json','products_44.json','products_45.json','products_46.json','products_47.json','products_48.json','products_49.json','products_50.json','products_51.json','products_52.json'];
-                document.getElementById('loading').textContent = '正在加载产品数据...';
-                const promises = dataFiles.map(f => fetch('data/' + f).then(r => r.json()).catch(() => []));
-                const results = await Promise.all(promises);
-                products = results.flat();
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('topStats').textContent = '共 ' + products.length.toLocaleString() + ' 个产品';
-                buildCategories();
-                filterAndSort();
-            } catch (e) {
-                console.error('加载失败:', e);
-                document.getElementById('loading').textContent = '加载失败，请刷新重试';
+
+<script>
+// ─── 数据 & 状态 ──────────────────────────────────────────────────────────
+let allProducts = [];
+let filteredProducts = [];
+let currentSort = 'default';
+let currentPage = 1;
+let currentCat = null;   // 当前选中分类（完整分类名）
+let currentSrc = null;   // 当前数据源
+const pageSize = 40;
+
+// ─── 分类树：定义逻辑父分类 ─────────────────────────────────────────────────
+const L1_MAP = {
+    '卫浴/卫生间': ['浴室', '沐浴', '浴缸', '马桶', '蹲便器', '面盆', '洗手盆', '花洒', '水龙头', '淋浴', '浴帘', '坐浴盆', '浴室柜', '浴室配件', '浴室挂件', '浴室收纳'],
+    '厨房': ['厨房', '橱柜', '水槽', '灶具', '抽油烟机', '厨柜', '洗碗机', '微波炉'],
+    '瓷砖/地板': ['瓷砖', '地砖', '墙砖', '马赛克', '大理石', '天然石', 'SPC', '地板', '地毯', '层压板', '木地板', '踢脚线', '底板', '石塑地板'],
+    '电气/照明': ['灯', '照明', 'LED', '电工', '电线', '电缆', '开关', '插座', '断路器', '配电', '电气', '筒灯', '壁灯', '吊灯', '台灯', '轨道灯'],
+    '建筑材料': ['瓦', '屋顶', '水泥', '钢材', '钢筋', '钢板', '型钢', '铁丝', '钢丝', '纤维水泥', '石膏', '砖', '砌块', '木材', '木方', '胶合板', '密度板', 'OSB', '欧松板', '混凝土'],
+    '管道/供水': ['水管', '管道', '阀门', '水龙头', '水箱', '水泵', '水表', '接头', '法兰', 'PVC', 'PE管', '软管', '水暖', '供水', '排水', '化粪池', '隔油池', '淋浴阀', '花洒头'],
+    '门窗': ['门', '窗', '门锁', '窗锁', '门把手', '门铰链', '闭门器', '门吸', '滑撑', '门框', '窗框', '防盗门', '推拉门', '折叠门', '纱门', '纱窗', '百叶窗', '窗帘', '卷帘', '罗马帘'],
+    '五金/工具': ['螺丝', '螺母', '螺栓', '钉子', '扳手', '钳子', '锤子', '锯', '电钻', '钻头', '砂纸', '砂轮', '打磨', '切割', '梯子', '手推车', '卷尺', '工具箱', '工具', '锁', '铰链', '把手', '拉手', '滑轨', '挂钩', '角码', '钉枪', '气枪', '焊丝'],
+    '家电': ['空调', '冰箱', '洗衣机', '电视', '风扇', '电暖器', '热水器', '吸尘器', '烤箱', '电磁炉', '空气净化', '加湿器', '除湿机'],
+    '家具/软装': ['床垫', '床', '沙发', '椅子', '桌子', '柜子', '书架', '鞋柜', '衣柜', '储物柜', '床头柜', '茶几', '地垫', '抱枕', '靠垫', '床单', '被套', '枕套', '被子', '褥子', '毛巾', '浴袍', '床上用品'],
+    '户外/园艺': ['花园', '园艺', '围栏', '栅栏', '花盆', '花架', '花箱', '种植箱', '割草机', '户外家具', '遮阳伞', '遮阳篷', '帆布', '防护网', '塑料布', '防鸟网', '园艺工具'],
+    '清洁/收纳': ['清洁', '洗涤', '拖把', '扫帚', '垃圾桶', '收纳', '置物架', '粘钩', '收纳盒', '收纳箱', '储物盒', '保鲜盒', '食品盒', '密封袋'],
+    '化工/涂料': ['油漆', '涂料', '色浆', '底漆', '面漆', '清漆', '胶', '密封胶', '玻璃胶', 'AB胶', '粘合剂', '填缝剂', '美缝剂', '腻子'],
+    '安全/防护': ['安全', '防护', '手套', '护目镜', '安全帽', '口罩', '耳塞', '安全鞋', '防护服', '灭火器', '烟雾报警', '监控', '门禁', '保险柜'],
+};
+
+// 反向映射：keyword → L1名
+const KW_TO_L1 = {};
+Object.entries(L1_MAP).forEach(([l1, kws]) => {
+    kws.forEach(kw => { KW_TO_L1[kw] = l1; });
+});
+
+function findL1(cat) {
+    if (!cat) return null;
+    // 先找最长匹配
+    let best = null, bestLen = 0;
+    for (const kw of Object.keys(KW_TO_L1)) {
+        if (cat.includes(kw) && kw.length > bestLen) {
+            best = KW_TO_L1[kw];
+            bestLen = kw.length;
+        }
+    }
+    return best;
+}
+
+// ─── 数据加载 ───────────────────────────────────────────────────────────────
+async function loadData() {
+    try {
+        const files = [];
+        for (let i = 1; i <= 52; i++) {
+            files.push('data/products_' + String(i).padStart(2,'0') + '.json');
+        }
+
+        document.getElementById('loading').textContent = '正在加载产品数据...';
+        const promises = files.map(f => fetch(f).then(r => r.json()).catch(() => []));
+        const results = await Promise.all(promises);
+        allProducts = results.flat();
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('topStats').textContent = '共 ' + allProducts.length.toLocaleString() + ' 个产品';
+
+        buildSrcFilter();
+        buildCatTree();
+        filterAndSort();
+    } catch (e) {
+        console.error(e);
+        document.getElementById('loading').textContent = '加载失败，请刷新重试';
+    }
+}
+
+// ─── 数据源筛选 ─────────────────────────────────────────────────────────────
+function buildSrcFilter() {
+    const srcCount = {};
+    allProducts.forEach(p => { if (p.source) srcCount[p.source] = (srcCount[p.source] || 0) + 1; });
+    const sorted = Object.entries(srcCount).sort((a, b) => b[1] - a[1]);
+
+    const container = document.getElementById('srcFilter');
+    container.innerHTML = sorted.map(([src, count]) =>
+        `<button class="src-btn" data-src="${src}" onclick="setSrc('${src}', this)">${src} (${count.toLocaleString()})</button>`
+    ).join('');
+}
+
+function setSrc(src, btn) {
+    if (currentSrc === src) {
+        currentSrc = null;
+        btn.classList.remove('active');
+    } else {
+        currentSrc = src;
+        container.querySelectorAll('.src-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+    currentPage = 1;
+    filterAndSort();
+}
+
+// ─── 分类树构建 ─────────────────────────────────────────────────────────────
+function buildCatTree() {
+    // 收集所有分类
+    const catMap = {}; // catName → count
+
+    allProducts.forEach(p => {
+        if (!p.category_zh) return;
+        // 处理多分类（有些产品有 | 分隔）
+        const cats = p.category_zh.split('|').map(c => c.trim()).filter(Boolean);
+        cats.forEach(cat => { catMap[cat] = (catMap[cat] || 0) + 1; });
+    });
+
+    // 构建树结构
+    const tree = {};
+
+    Object.entries(catMap).forEach(([cat, count]) => {
+        let parts, l1, l2, l3;
+
+        if (cat.includes(' > ')) {
+            // 层级格式：建筑材料 > 屋顶/屋顶配件 > 波纹屋顶瓦/设备
+            parts = cat.split(' > ').map(p => p.trim()).filter(Boolean);
+            l1 = findL1(parts[0]) || parts[0];
+            l2 = parts[1] || null;
+            l3 = parts[2] || null;
+        } else {
+            // 扁平格式
+            l1 = findL1(cat) || '其他';
+            l2 = null;
+            l3 = null;
+        }
+
+        if (!tree[l1]) tree[l1] = { children: {}, count: 0 };
+        tree[l1].count += count;
+
+        if (l2) {
+            if (!tree[l1].children[l2]) tree[l1].children[l2] = { children: {}, count: 0 };
+            tree[l1].children[l2].count += count;
+
+            if (l3) {
+                if (!tree[l1].children[l2].children[l3]) tree[l1].children[l2].children[l3] = { count: 0 };
+                tree[l1].children[l2].children[l3].count += count;
             }
         }
-        function buildCategories() {
-            const catCount = {};
-            products.forEach(p => {
-                const cats = [p.category_zh, p.category_en, p.source].filter(Boolean);
-                cats.forEach(cat => { catCount[cat] = (catCount[cat] || 0) + 1; });
-            });
-            const sortedCats = Object.entries(catCount).sort((a, b) => b[1] - a[1]).slice(0, 50);
-            const container = document.getElementById('catTags');
-            container.innerHTML = sortedCats.map(([cat, count]) => '<button class="cat-tag" data-cat="' + cat + '">' + cat + ' (' + count + ')</button>').join('');
-            container.querySelectorAll('.cat-tag').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const cat = btn.dataset.cat;
-                    const input = document.getElementById('searchInput');
-                    if (input.value.startsWith('分类:')) {
-                        const current = input.value.split(':')[1] && input.value.split(':')[1].trim();
-                        input.value = (current === cat) ? '' : '分类:' + cat;
-                    } else {
-                        input.value = '分类:' + cat;
-                    }
-                    handleSearch();
-                });
-            });
-        }
-        function handleSearch() { filterAndSort(); }
-        function handleSort(btn) {
-            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentSort = btn.dataset.sort;
-            filterAndSort();
-        }
-        function filterAndSort() {
-            const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
-            filteredProducts = products.filter(p => {
-                if (keyword) {
-                    if (keyword.startsWith('分类:')) {
-                        const cat = keyword.substring(3).trim();
-                        return (p.category_zh || '').toLowerCase().includes(cat) || (p.category_en || '').toLowerCase().includes(cat) || (p.source || '').toLowerCase().includes(cat);
-                    }
-                    return (p.name_zh || p.name || '').toLowerCase().includes(keyword);
+    });
+
+    // 渲染
+    const container = document.getElementById('catTree');
+    container.innerHTML = '';
+
+    // 全部产品入口
+    const allItem = document.createElement('div');
+    allItem.className = 'tree-node';
+    allItem.innerHTML = `<div class="tree-label" onclick="selectCat(null, this)">
+        <span class="tree-toggle leaf-toggle"></span>
+        <span class="tree-name">📦 全部产品</span>
+        <span class="tree-count">${allProducts.length.toLocaleString()}</span>
+    </div>`;
+    container.appendChild(allItem);
+
+    // 按count排序 L1
+    const sortedL1 = Object.entries(tree).sort((a, b) => b[1].count - a[1].count);
+
+    sortedL1.forEach(([l1Name, l1Data]) => {
+        const l1Node = document.createElement('div');
+        l1Node.className = 'tree-node';
+
+        const l2Entries = Object.entries(l1Data.children).sort((a, b) => b[1].count - a[1].count);
+        const hasChildren = l2Entries.length > 0;
+
+        l1Node.innerHTML = `<div class="tree-label" onclick="toggleNode(this, event)">
+            <span class="tree-toggle${hasChildren ? '' : ' leaf-toggle'}">▶</span>
+            <span class="tree-name">${l1Name}</span>
+            <span class="tree-count">${l1Data.count.toLocaleString()}</span>
+        </div>`;
+
+        if (hasChildren) {
+            const l2Container = document.createElement('div');
+            l2Container.className = 'tree-children';
+
+            l2Entries.forEach(([l2Name, l2Data]) => {
+                const l2Node = document.createElement('div');
+                l2Node.className = 'tree-node l2';
+
+                const l3Entries = Object.entries(l2Data.children).sort((a, b) => b[1].count - a[1].count);
+                const hasL3 = l3Entries.length > 0;
+
+                l2Node.innerHTML = `<div class="tree-label" onclick="toggleNode(this, event)">
+                    <span class="tree-toggle${hasL3 ? '' : ' leaf-toggle'}">▶</span>
+                    <span class="tree-name">${l2Name}</span>
+                    <span class="tree-count">${l2Data.count.toLocaleString()}</span>
+                </div>`;
+
+                if (hasL3) {
+                    const l3Container = document.createElement('div');
+                    l3Container.className = 'tree-children';
+
+                    l3Entries.forEach(([l3Name, l3Data]) => {
+                        const l3Node = document.createElement('div');
+                        l3Node.className = 'tree-node l3';
+                        l3Node.innerHTML = `<div class="tree-label tree-leaf" onclick="selectCatLeaf('${l3Name}', '${l1Name} > ${l2Name} > ${l3Name}', this)">
+                            <span class="tree-toggle leaf-toggle"></span>
+                            <span class="tree-name">${l3Name}</span>
+                            <span class="tree-count">${l3Data.count.toLocaleString()}</span>
+                        </div>`;
+                        l3Container.appendChild(l3Node);
+                    });
+
+                    l2Node.appendChild(l3Container);
+                } else {
+                    // 直接是叶节点的L2
+                    l2Node.innerHTML = `<div class="tree-label tree-leaf" onclick="selectCatLeaf('${l2Name}', '${l1Name} > ${l2Name}', this)">
+                        <span class="tree-toggle leaf-toggle"></span>
+                        <span class="tree-name">${l2Name}</span>
+                        <span class="tree-count">${l2Data.count.toLocaleString()}</span>
+                    </div>`;
                 }
-                return true;
+                l2Container.appendChild(l2Node);
             });
-            if (currentSort === 'price-asc') filteredProducts.sort((a, b) => (parseFloat(a.price) || 999999) - (parseFloat(b.price) || 999999));
-            else if (currentSort === 'price-desc') filteredProducts.sort((a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0));
-            currentPage = 1;
-            renderProducts();
-            renderPagination();
-            document.getElementById('mainStats').textContent = '共 ' + filteredProducts.length.toLocaleString() + ' 个';
+
+            l1Node.appendChild(l2Container);
         }
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            const noResults = document.getElementById('noResults');
-            if (filteredProducts.length === 0) { grid.innerHTML = ''; noResults.style.display = 'block'; return; }
-            noResults.style.display = 'none';
-            const start = (currentPage - 1) * pageSize;
-            const end = start + pageSize;
-            const pageProducts = filteredProducts.slice(start, end);
-            grid.innerHTML = pageProducts.map(p => {
-                const price = p.price ? '฿' + parseFloat(p.price).toLocaleString() : '暂无价格';
-                const name = escapeHtml(p.name_zh || p.name || '未知产品');
-                const img = p.image_url || '';
-                const globalIndex = products.indexOf(p);
-                return '<div class="product-card" onclick="showDetail(' + globalIndex + ')"><div class="img-wrap">' + (img ? '<img src="' + img + '" loading="lazy" alt="' + name + '">' : '<span class="no-img">暂无图片</span>') + '</div><div class="info"><div class="name">' + name + '</div><div class="price">' + price + '</div><div class="source">' + (p.source || '') + '</div></div></div>';
-            }).join('');
+
+        container.appendChild(l1Node);
+    });
+}
+
+// 展开/折叠节点
+function toggleNode(label, event) {
+    event.stopPropagation();
+    const children = label.parentElement.querySelector(':scope > .tree-children');
+    const toggle = label.querySelector('.tree-toggle');
+    if (children) {
+        const isOpen = children.classList.toggle('open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.textContent = isOpen ? '▼' : '▶';
+    }
+}
+
+// 选中叶分类（最终分类名）
+function selectCatLeaf(catName, fullPath, label) {
+    // 清除所有 active 状态
+    document.querySelectorAll('.tree-label').forEach(l => l.classList.remove('active', 'active-leaf'));
+    label.classList.add('active-leaf');
+
+    currentCat = catName;
+    currentPage = 1;
+    filterAndSort();
+}
+
+// 选中"全部"
+function selectCat(cat, label) {
+    document.querySelectorAll('.tree-label').forEach(l => l.classList.remove('active', 'active-leaf'));
+    label.classList.add('active');
+    currentCat = null;
+    currentPage = 1;
+    filterAndSort();
+}
+
+// ─── 搜索 & 过滤 & 排序 ──────────────────────────────────────────────────────
+function handleSearch() {
+    currentPage = 1;
+    filterAndSort();
+}
+
+function handleSort(btn) {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSort = btn.dataset.sort;
+    currentPage = 1;
+    filterAndSort();
+}
+
+function filterAndSort() {
+    const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
+
+    filteredProducts = allProducts.filter(p => {
+        // 数据源过滤
+        if (currentSrc && p.source !== currentSrc) return false;
+
+        // 关键词搜索（产品名）
+        if (keyword) {
+            const name = (p.name_zh || p.name || '').toLowerCase();
+            if (!name.includes(keyword)) return false;
         }
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredProducts.length / pageSize);
-            const pag = document.getElementById('pagination');
-            if (totalPages <= 1) { pag.innerHTML = ''; return; }
-            let html = '<button onclick="goToPage(' + (currentPage-1) + ')" ' + (currentPage===1?'disabled':'') + '>上一页</button>';
-            const range = 2;
-            for (let i = Math.max(1, currentPage-range); i <= Math.min(totalPages, currentPage+range); i++) {
-                html += '<button class="' + (i===currentPage?'active':'') + '" onclick="goToPage(' + i + ')">' + i + '</button>';
-            }
-            html += '<button onclick="goToPage(' + (currentPage+1) + ')" ' + (currentPage===totalPages?'disabled':'') + '>下一页</button>';
-            html += '<span class="page-info">' + currentPage + '/' + totalPages + '页</span>';
-            pag.innerHTML = html;
+
+        // 分类过滤
+        if (currentCat) {
+            const cat = (p.category_zh || '').toLowerCase();
+            if (!cat.includes(currentCat.toLowerCase())) return false;
         }
-        function goToPage(p) {
-            const totalPages = Math.ceil(filteredProducts.length / pageSize);
-            if (p < 1 || p > totalPages) return;
-            currentPage = p;
-            renderProducts();
-            renderPagination();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        function showDetail(index) {
-            const p = products[index];
-            const name = escapeHtml(p.name_zh || p.name || '未知');
-            const img = p.image_url || '';
-            document.getElementById('modalTitle').textContent = name;
-            const imgHtml = img ? '<img src="' + img + '" alt="' + name + '">' : '<div style="height:200px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;color:#ccc">暂无图片</div>';
-            const linkHtml = p.url ? '<a href="' + p.url + '" target="_blank" style="color:#0066cc">打开原网页 →</a>' : '';
-            document.getElementById('modalBody').innerHTML = imgHtml +
-                '<div class="modal-row"><span class="modal-label">价格</span><span class="modal-value modal-price">' + (p.price ? '฿' + parseFloat(p.price).toLocaleString() : '暂无价格') + '</span></div>' +
-                '<div class="modal-row"><span class="modal-label">来源</span><span class="modal-value"><span class="modal-source">' + (p.source || '未知') + '</span></span></div>' +
-                '<div class="modal-row"><span class="modal-label">分类</span><span class="modal-value">' + (p.category_zh || p.category_en || '未分类') + '</span></div>' +
-                '<div class="modal-row"><span class="modal-label">品牌</span><span class="modal-value">' + (p.brand || '-') + '</span></div>' +
-                '<div class="modal-row"><span class="modal-label">SKU</span><span class="modal-value">' + (p.sku || '-') + '</span></div>' +
-                '<div class="modal-row"><span class="modal-label">链接</span><span class="modal-value">' + (linkHtml || '-') + '</span></div>';
-            document.getElementById('modal').classList.add('show');
-        }
-        function closeModal() { document.getElementById('modal').classList.remove('show'); }
-        document.getElementById('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
-        function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-        window.addEventListener('DOMContentLoaded', loadData);
-    </script>
+
+        return true;
+    });
+
+    if (currentSort === 'price-asc') {
+        filteredProducts.sort((a, b) => (parseFloat(a.price) || 999999) - (parseFloat(b.price) || 999999));
+    } else if (currentSort === 'price-desc') {
+        filteredProducts.sort((a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0));
+    }
+
+    renderProducts();
+    renderPagination();
+    document.getElementById('mainStats').textContent = '共 ' + filteredProducts.length.toLocaleString() + ' 个';
+}
+
+// ─── 渲染 ────────────────────────────────────────────────────────────────────
+function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    const noResults = document.getElementById('noResults');
+
+    if (filteredProducts.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+    }
+    noResults.style.display = 'none';
+
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+    const pageProducts = filteredProducts.slice(start, end);
+
+    grid.innerHTML = pageProducts.map(p => {
+        const price = p.price ? '฿' + parseFloat(p.price).toLocaleString() : '暂无价格';
+        const name = escapeHtml(p.name_zh || p.name || '未知产品');
+        const img = p.image_url || '';
+        const globalIndex = allProducts.indexOf(p);
+
+        return `<div class="product-card" onclick="showDetail(${globalIndex})">
+            <div class="img-wrap">
+                ${img ? `<img src="${img}" loading="lazy" alt="${name}">` : '<span class="no-img">暂无图片</span>'}
+            </div>
+            <div class="info">
+                <div class="name">${name}</div>
+                <div class="price">${price}</div>
+                <div class="source">${p.source || ''}</div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(filteredProducts.length / pageSize);
+    const pag = document.getElementById('pagination');
+
+    if (totalPages <= 1) { pag.innerHTML = ''; return; }
+
+    let html = `<button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一页</button>`;
+
+    const range = 2;
+    for (let i = Math.max(1, currentPage - range); i <= Math.min(totalPages, currentPage + range); i++) {
+        html += `<button class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    }
+
+    html += `<button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页</button>`;
+    html += `<span class="page-info">${currentPage} / ${totalPages} 页</span>`;
+    pag.innerHTML = html;
+}
+
+function goToPage(p) {
+    const totalPages = Math.ceil(filteredProducts.length / pageSize);
+    if (p < 1 || p > totalPages) return;
+    currentPage = p;
+    renderProducts();
+    renderPagination();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── 详情 ────────────────────────────────────────────────────────────────────
+function showDetail(index) {
+    const p = allProducts[index];
+    const name = escapeHtml(p.name_zh || p.name || '未知');
+    const img = p.image_url || '';
+
+    document.getElementById('modalTitle').textContent = name;
+    let imgHtml = img
+        ? `<img src="${img}" alt="${name}">`
+        : '<div style="height:200px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--text3)">暂无图片</div>';
+    let linkHtml = p.url ? `<a href="${p.url}" target="_blank" style="color:var(--accent)">打开原网页 →</a>` : '-';
+
+    document.getElementById('modalBody').innerHTML = imgHtml +
+        `<div class="modal-row"><span class="modal-label">价格</span><span class="modal-value modal-price">${p.price ? '฿' + parseFloat(p.price).toLocaleString() : '暂无价格'}</span></div>` +
+        `<div class="modal-row"><span class="modal-label">来源</span><span class="modal-value"><span class="modal-source">${p.source || '未知'}</span></span></div>` +
+        `<div class="modal-row"><span class="modal-label">分类</span><span class="modal-value">${p.category_zh || p.category_en || '未分类'}</span></div>` +
+        `<div class="modal-row"><span class="modal-label">品牌</span><span class="modal-value">${p.brand || '-'}</span></div>` +
+        `<div class="modal-row"><span class="modal-label">SKU</span><span class="modal-value">${p.sku || '-'}</span></div>` +
+        `<div class="modal-row"><span class="modal-label">链接</span><span class="modal-value">${linkHtml}</span></div>`;
+
+    document.getElementById('modal').classList.add('show');
+}
+
+function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+}
+
+document.getElementById('modal').addEventListener('click', e => {
+    if (e.target.id === 'modal') closeModal();
+});
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+window.addEventListener('DOMContentLoaded', loadData);
+</script>
 </body>
 </html>
