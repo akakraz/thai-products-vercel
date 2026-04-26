@@ -175,29 +175,11 @@ var pageSize = 40;
 // ─── 数据加载 ───────────────────────────────────────────────────────────────
 async function loadData() {
     try {
-        var files = [];
-        for (var i = 1; i <= 52; i++) {
-            files.push('data/products_' + String(i).padStart(2,'0') + '.json');
-        }
-
         var loadingEl = document.getElementById('loading');
-        loadingEl.textContent = '正在加载产品数据 (0/52)...';
-        allProducts = [];
-        
-        // 串行加载，避免同时请求过多
-        for (var idx = 0; idx < files.length; idx++) {
-            try {
-                var r = await fetch(files[idx]);
-                var data = await r.json();
-                allProducts = allProducts.concat(data);
-            } catch(e) {
-                console.warn('Failed to load:', files[idx], e);
-            }
-            // 每10个文件更新一次进度
-            if (idx % 10 === 0 || idx === files.length - 1) {
-                loadingEl.textContent = '正在加载产品数据 (' + (idx + 1) + '/52)... ' + allProducts.length + ' 个';
-            }
-        }
+        loadingEl.textContent = '正在加载产品数据...';
+
+        var r = await fetch('products_all.json');
+        allProducts = await r.json();
 
         loadingEl.style.display = 'none';
         document.getElementById('topStats').textContent = '共 ' + allProducts.length.toLocaleString() + ' 个产品';
@@ -208,7 +190,7 @@ async function loadData() {
         filterAndSort();
     } catch (e) {
         console.error(e);
-        document.getElementById('loading').textContent = '加载失败，请刷新重试: ' + e.message;
+        document.getElementById('loading').textContent = '加载失败: ' + e.message;
     }
 }
 
