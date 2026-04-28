@@ -354,55 +354,21 @@ async function loadData() {
 
         var loadingEl = document.getElementById('loading');
 
-        loadingEl.textContent = '正在加载产品数据...';
+        loadingEl.textContent = '正在加载产品数据（压缩包，仅 3.7MB）...';
 
 
 
-// 顺序加载3个数据分片（避免超时）
+        // 优先加载 gzip 压缩版本（3.7MB），浏览器自动解压，速度快很多
 
-var chunks = ['products_1.json','products_2.json','products_3.json','products_4.json','products_5.json','products_6.json','products_7.json'];
+        var r = await fetch('products.json.gz');
 
-allProducts = [];
+        var buf = await r.arrayBuffer();
 
-for (var i = 0; i < chunks.length; i++) {
+        loadingEl.textContent = '正在解压产品数据...';
 
-    var r = await fetch(chunks[i]);
+        var decompressed = pako.inflate(new Uint8Array(buf), { to: 'string' });
 
-    var data = await r.json();
-
-    allProducts = allProducts.concat(data);
-
-}
-
-// 顺序加载3个数据分片（避免超时）
-
-var chunks = ['products_1.json','products_2.json','products_3.json','products_4.json','products_5.json','products_6.json','products_7.json'];
-
-allProducts = [];
-
-for (var i = 0; i < chunks.length; i++) {
-
-    var r = await fetch(chunks[i]);
-
-    var data = await r.json();
-
-    allProducts = allProducts.concat(data);
-
-}
-
-
-
-}
-
-
-
-        
-
-        // 如果单个 products_all.json 存在（备用）
-
-        // var r = await fetch('products_all.json');
-
-        // allProducts = await r.json();
+        allProducts = JSON.parse(decompressed);
 
 
 
@@ -422,9 +388,49 @@ for (var i = 0; i < chunks.length; i++) {
 
     } catch (e) {
 
-        console.error(e);
+        // gzip 加载失败时，尝试分片加载
 
-        document.getElementById('loading').textContent = '加载失败: ' + e.message;
+        try {
+
+            var loadingEl = document.getElementById('loading');
+
+            loadingEl.textContent = '正在加载产品数据...';
+
+            var chunks = ['products_1.json','products_2.json','products_3.json','products_4.json','products_5.json','products_6.json','products_7.json'];
+
+            allProducts = [];
+
+            for (var i = 0; i < chunks.length; i++) {
+
+                loadingEl.textContent = '加载中 ' + (i+1) + '/' + chunks.length + '...';
+
+                var r = await fetch(chunks[i]);
+
+                var data = await r.json();
+
+                allProducts = allProducts.concat(data);
+
+            }
+
+            loadingEl.style.display = 'none';
+
+            document.getElementById('topStats').textContent = '共 ' + allProducts.length.toLocaleString() + ' 个产品';
+
+            buildSrcFilter();
+
+            buildCatMeta();
+
+            buildCatTree();
+
+            filterAndSort();
+
+        } catch (e2) {
+
+            console.error(e2);
+
+            document.getElementById('loading').textContent = '加载失败: ' + e2.message;
+
+        }
 
     }
 
